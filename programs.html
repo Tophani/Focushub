@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Programs — FocusHub</title>
+<meta name="description" content="FocusHub's five programs: Technology & Digital Skills Education, Professional Training & Certification, Innovation Hubs & Collaborative Spaces, Partnerships & Ecosystem Collaboration, and Events & Innovation Programs.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fustat:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     TOKENS — same system as the homepage
+     ============================================================ */
+  :root{
+    --brand:#5A80FF;
+    --brand-deep:#3A5BD9;
+    --brand-darker:#2A43B0;
+    --brand-soft:#EEF2FF;
+
+    --ink-900:#0A0D16;
+    --ink:#0F1422;
+    --ink-soft:#5A6275;
+
+    --paper:#FBFCFF;
+    --paper-2:#FFFFFF;
+    --mist:#F4F6FF;
+    --line:rgba(10,13,22,.08);
+    --line-strong:rgba(10,13,22,.14);
+
+    --accent:#FFB625;
+    --accent-deep:#E29A12;
+    --accent-soft:#FFF3D6;
+
+    --display:'Fustat',system-ui,sans-serif;
+    --body:'Inter',-apple-system,system-ui,sans-serif;
+    --wrap:1240px;
+    --gut:clamp(20px,5vw,56px);
+
+    --geo-a:#5A80FF;
+    --geo-b:#3A5BD9;
+    --geo-c:#B9C8FF;
+    --geo-d:#0A0D16;
+    --geo-e:#8AA0FF;
+
+    /* five program accents — pulled from the homepage's own icon set */
+    --p1:#185FA5; --p1-tint:#E6F1FB;
+    --p2:#854F0B; --p2-tint:#FAEEDA;
+    --p3:#0F6E56; --p3-tint:#E1F5EE;
+    --p4:#534AB7; --p4-tint:#EEEDFE;
+    --p5:#E29A12; --p5-tint:#FFF3D6;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:var(--body);
+    color:var(--ink);
+    background:var(--paper);
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none;}
+  svg{display:block;}
+  ::selection{background:var(--brand);color:#fff;}
+  .wrap{max-width:var(--wrap);margin:0 auto;padding-inline:var(--gut);}
+  img{max-width:100%;}
+  section[id]{scroll-margin-top:96px;}
+
+  /* ============================================================
+     BUTTONS — matches homepage
+     ============================================================ */
+  .btn{
+    display:inline-flex;align-items:center;gap:12px;
+    font-family:var(--body);font-size:15px;font-weight:600;letter-spacing:-0.2px;
+    border-radius:14px;border:1px solid transparent;cursor:pointer;
+    text-decoration:none;white-space:nowrap;
+    transition:transform .3s cubic-bezier(.22,1,.36,1), box-shadow .3s ease, background .25s ease, color .25s ease;
+  }
+  .btn-primary{
+    padding:13px 13px 13px 24px;
+    background:var(--brand);
+    color:#fff;
+    box-shadow:inset 0 3px 4px 0 rgba(255,255,255,.30), 0 16px 30px -14px rgba(90,128,255,.65);
+  }
+  .btn-primary:hover{
+    transform:translateY(-2px);
+    box-shadow:inset 0 3px 4px 0 rgba(255,255,255,.30), 0 22px 40px -14px rgba(90,128,255,.75);
+  }
+  .btn-primary .arrow-circle{
+    width:30px;height:30px;border-radius:50%;background:#fff;
+    display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;
+    transition:transform .3s ease;
+  }
+  .btn-primary:hover .arrow-circle{transform:translateX(3px);}
+  .btn-primary .arrow-circle svg{width:13px;height:13px;stroke:var(--brand);stroke-width:2.4;fill:none;}
+
+  .btn-secondary{
+    padding: 13px 22px;
+    background: rgba(10,13,22,.04);
+    color: var(--ink);
+    border: 1px solid var(--line-strong);
+    border-radius: 24px;
+    transition: background .3s ease, border-color .3s ease, transform .3s ease;
+  }
+  .btn-secondary:hover{ background: rgba(10,13,22,.08); transform: translateY(-2px); }
+  .on-dark .btn-secondary{ color:#fff; background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.35); }
+  .on-dark .btn-secondary:hover{ background: rgba(255,255,255,.20); }
+
+  /* ============================================================
+     NAV
+     ============================================================ */
+  .site-nav{position:sticky;top:0;z-index:200;background:rgba(251,252,255,.82);backdrop-filter:blur(16px) saturate(160%);-webkit-backdrop-filter:blur(16px) saturate(160%);border-bottom:1px solid var(--line);}
+  .nav{display:flex;align-items:center;gap:1.4rem;height:72px;}
+  .brand{display:flex;align-items:center;gap:.62rem;margin-right:auto;}
+  .brand .name{font-family:var(--display);font-weight:700;font-size:1.16rem;letter-spacing:-.01em;color:var(--ink);line-height:1;}
+  .nav-links{display:flex;align-items:center;gap:.2rem;}
+  .nav-links a{font-size:.92rem;font-weight:600;color:var(--ink-soft);padding:.55em 1em;border-radius:100px;transition:.18s ease;}
+  .nav-links a:hover{color:var(--ink);background:#E2F1FF;}
+  .nav-links a.active{color:var(--brand);background:var(--brand-soft);}
+  .burger{display:none;background:none;border:1px solid var(--line-strong);border-radius:12px;width:44px;height:40px;cursor:pointer;flex-direction:column;gap:4px;align-items:center;justify-content:center;}
+  .burger span{width:18px;height:2px;background:var(--ink);border-radius:2px;}
+  .mobile-menu{display:none;flex-direction:column;gap:2px;padding:8px var(--gut) 18px;border-bottom:1px solid var(--line);background:var(--paper);}
+  .mobile-menu a{padding:12px 14px;border-radius:12px;font-weight:600;color:var(--ink-soft);}
+  .mobile-menu a:hover{background:var(--brand-soft);color:var(--ink);}
+  .mobile-menu.open{display:flex;}
+  @media (max-width:900px){ .nav-links,.nav-actions{display:none;} .burger{display:flex;} }
+
+  /* ============================================================
+     HERO
+     ============================================================ */
+  .prog-hero{position:relative;overflow:hidden;padding:clamp(56px,9vw,108px) 0 clamp(48px,7vw,84px);}
+  .prog-hero-geo{position:absolute;inset:0;z-index:0;width:100%;height:100%;opacity:.16;pointer-events:none;}
+  .prog-hero .wrap{position:relative;z-index:1;}
+  .eyebrow{font-size:.82rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--brand-deep);display:inline-flex;align-items:center;gap:.7em;margin:0 0 1.4rem;}
+  .eyebrow::before{content:"";width:26px;height:1px;background:currentColor;opacity:.7;}
+  .prog-hero h1{font-family:var(--display);font-size:clamp(2.4rem,5.4vw,4rem);font-weight:700;line-height:1.05;letter-spacing:-.02em;max-width:16ch;}
+  .prog-hero .sub{font-size:clamp(1.02rem,1.4vw,1.18rem);color:var(--ink-soft);max-width:56ch;margin:1.5rem 0 2.2rem;}
+  .prog-hero-stats{display:flex;gap:clamp(28px,5vw,56px);flex-wrap:wrap;margin-top:2.6rem;padding-top:2.2rem;border-top:1px solid var(--line);}
+  .prog-hero-stat h3{font-family:var(--display);font-size:30px;font-weight:700;letter-spacing:-1px;color:var(--ink);}
+  .prog-hero-stat p{font-size:13px;color:var(--ink-soft);margin-top:2px;max-width:190px;}
+
+  /* ============================================================
+     PROGRAM LIST + LIVE INDEX RAIL (signature element)
+     ============================================================ */
+  .programs-shell{position:relative;padding:clamp(24px,4vw,40px) 0 clamp(80px,10vw,120px);}
+  .programs-shell .wrap{display:grid;grid-template-columns:1fr 64px;gap:0;align-items:start;}
+
+  .program-list{display:flex;flex-direction:column;}
+
+  .rail{
+    position:sticky;
+    top:120px;
+    height:420px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-self:end;
+  }
+  .rail-line{
+    position:relative;
+    width:2px;
+    flex:1;
+    background:var(--line-strong);
+    border-radius:2px;
+    overflow:hidden;
+  }
+  .rail-fill{
+    position:absolute;
+    top:0;left:0;width:100%;
+    height:0%;
+    background:linear-gradient(180deg,var(--p1),var(--p2) 25%,var(--p3) 50%,var(--p4) 75%,var(--p5));
+    border-radius:2px;
+    transition:height .15s linear;
+  }
+  .rail-dots{position:absolute;top:0;left:50%;transform:translateX(-50%);width:2px;height:100%;display:flex;flex-direction:column;justify-content:space-between;}
+  .rail-dot{
+    width:11px;height:11px;border-radius:50%;
+    background:var(--paper);
+    border:2px solid var(--line-strong);
+    transform:translateX(-50%);
+    position:relative; left:1px;
+    cursor:pointer;
+    transition:all .3s cubic-bezier(.22,1,.36,1);
+  }
+  .rail-dot.active{
+    background:var(--dot-color, var(--brand));
+    border-color:var(--dot-color, var(--brand));
+    transform:translateX(-50%) scale(1.5);
+    box-shadow:0 0 0 4px color-mix(in srgb, var(--dot-color, var(--brand)) 20%, transparent);
+  }
+  @media (max-width:1000px){
+    .programs-shell .wrap{grid-template-columns:1fr;}
+    .rail{display:none;}
+  }
+
+  .program-band{
+    display:grid;
+    grid-template-columns:340px 1fr;
+    gap:clamp(32px,5vw,72px);
+    align-items:center;
+    padding:clamp(48px,7vw,88px) 0;
+    border-bottom:1px solid var(--line);
+    opacity:0; transform:translateY(36px);
+    transition:opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1);
+  }
+  .program-band.in-view{ opacity:1; transform:translateY(0); }
+  .program-band:last-child{ border-bottom:none; }
+  .program-band:nth-child(even){ direction:rtl; }
+  .program-band:nth-child(even) > *{ direction:ltr; }
+
+  .program-glyph-wrap{
+    position:relative;
+    display:flex; align-items:center; justify-content:center;
+    aspect-ratio:1;
+    border-radius:32px;
+    background:var(--p-tint);
+    overflow:hidden;
+  }
+  .program-glyph-wrap svg{width:62%;height:62%;transition:transform .6s cubic-bezier(.22,1,.36,1);}
+  .program-band:hover .program-glyph-wrap svg{transform:rotate(-6deg) scale(1.06);}
+  .program-index{
+    position:absolute; top:18px; left:20px;
+    font-family:var(--display); font-weight:700; font-size:14px;
+    letter-spacing:1px; color:var(--p-accent);
+    display:flex; align-items:center; gap:8px;
+  }
+  .program-index::before{content:"";width:16px;height:1px;background:currentColor;opacity:.6;}
+
+  .program-copy .program-tag{
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:12.5px; font-weight:700; letter-spacing:1.6px; text-transform:uppercase;
+    color:var(--p-accent); margin-bottom:14px;
+  }
+  .program-copy .program-tag::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--p-accent);}
+  .program-copy h2{
+    font-family:var(--display); font-weight:700;
+    font-size:clamp(1.6rem,2.6vw,2.15rem); letter-spacing:-.6px; line-height:1.15;
+    margin-bottom:14px; max-width:20ch;
+  }
+  .program-copy p.desc{ font-size:15.5px; line-height:1.7; color:var(--ink-soft); max-width:56ch; margin-bottom:22px; }
+  .program-feats{ list-style:none; display:flex; flex-direction:column; gap:11px; margin-bottom:24px; }
+  .program-feats li{ display:flex; align-items:flex-start; gap:11px; font-size:14.5px; color:var(--ink); }
+  .program-feats .ck{
+    width:20px;height:20px;border-radius:50%;flex-shrink:0;margin-top:1px;
+    background:var(--p-tint); display:grid; place-items:center;
+  }
+  .program-feats .ck svg{width:11px;height:11px;stroke:var(--p-accent);stroke-width:3;fill:none;}
+  .program-copy .program-link{
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:14px; font-weight:700; color:var(--p-accent);
+  }
+  .program-copy .program-link svg{width:14px;height:14px;stroke:var(--p-accent);stroke-width:2.4;fill:none;transition:transform .25s ease;}
+  .program-copy .program-link:hover svg{transform:translateX(4px);}
+
+  @media (max-width:820px){
+    .program-band, .program-band:nth-child(even){ grid-template-columns:1fr; direction:ltr; }
+    .program-glyph-wrap{ max-width:220px; margin:0 auto; }
+  }
+
+  /* ============================================================
+     CTA BAND — reused from homepage
+     ============================================================ */
+  .cta-wrap{position:relative;z-index:5;padding:24px;max-width:1600px;margin:0 auto;}
+  .cta-band{position:relative;border-radius:32px;padding:clamp(64px,9vw,120px) 40px;text-align:center;overflow:hidden;background:var(--ink-900);}
+  .cta-geo{position:absolute;inset:0;width:100%;height:100%;opacity:.16;z-index:0;pointer-events:none;}
+  .cta-band::before,.cta-band::after{content:"";position:absolute;border-radius:50%;filter:blur(110px);pointer-events:none;z-index:0;}
+  .cta-band::before{width:480px;height:360px;top:-140px;left:-100px;background:var(--brand);opacity:.4;}
+  .cta-band::after{width:420px;height:340px;bottom:-160px;right:-80px;background:var(--brand-deep);opacity:.3;}
+  .cta-band>*{position:relative;z-index:1;}
+  .cta-band h2{font-family:var(--display);font-weight:700;font-size:clamp(2.2rem,5vw,4rem);letter-spacing:-1.6px;line-height:1.05;color:#fff;margin-bottom:16px;}
+  .cta-band p{font-size:17px;color:rgba(255,255,255,.78);max-width:540px;margin:0 auto 36px;line-height:1.6;}
+  .cta-band .hero-cta{display:flex;flex-wrap:wrap;gap:.85rem;justify-content:center;}
+
+  /* ============================================================
+     FOOTER
+     ============================================================ */
+  .footer{background:var(--ink-900);color:#fff;}
+  .footer-inner{max-width:1320px;margin:0 auto;padding:64px var(--gut) 40px;}
+  .footer-top{display:flex;gap:40px;flex-wrap:wrap;align-items:flex-start;}
+  .footer-brand{max-width:300px;}
+  .footer-brand .name{font-family:var(--display);font-weight:700;font-size:1.3rem;}
+  .footer-brand p{color:rgba(255,255,255,.55);font-size:14px;margin-top:12px;line-height:1.6;}
+  .footer-links{margin-left:auto;display:flex;flex-wrap:wrap;gap:8px 28px;}
+  .footer-links a{font-size:13.5px;color:rgba(255,255,255,.6);transition:color .2s ease;}
+  .footer-links a:hover{color:#fff;}
+  .footer-legal{margin-top:40px;padding-top:24px;border-top:1px solid rgba(255,255,255,.1);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:13px;color:rgba(255,255,255,.45);}
+
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto;}
+    .program-band{opacity:1!important;transform:none!important;transition:none!important;}
+    *{transition-duration:.01ms!important;}
+  }
+</style>
+</head>
+<body>
+
+  <header class="site-nav">
+    <div class="wrap">
+      <nav class="nav" aria-label="Primary">
+        <a class="brand" href="index.html" aria-label="FocusHub home">
+          <span class="name">FocusHub</span>
+        </a>
+        <div class="nav-links">
+          <a href="index.html#about">About</a>
+          <a href="index.html#what-we-do">What we do</a>
+          <a href="programs.html" class="active">Programs</a>
+          <a href="index.html#bullish">Bullish AI</a>
+          <a href="index.html#partners">Partners</a>
+          <a href="index.html#contact">Contact</a>
+        </div>
+        <div class="nav-actions">
+          <a href="index.html#partners" class="btn btn-primary">Partner With Us
+            <span class="arrow-circle"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </a>
+        </div>
+        <button class="burger" aria-label="Open menu" id="burger"><span></span><span></span><span></span></button>
+      </nav>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html#about">About</a>
+      <a href="index.html#what-we-do">What we do</a>
+      <a href="programs.html">Programs</a>
+      <a href="index.html#bullish">Bullish AI</a>
+      <a href="index.html#partners">Partners</a>
+      <a href="index.html#contact">Contact</a>
+    </div>
+  </header>
+
+  <!-- ================= HERO ================= -->
+  <header class="prog-hero">
+    <svg class="prog-hero-geo" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <defs>
+        <pattern id="bauhaus-p" width="420" height="420" patternUnits="userSpaceOnUse">
+          <path d="M0,0 L134,0 A134,134 0 0 1 0,134 Z" fill="var(--geo-b)"/>
+          <rect x="146" y="6" width="128" height="128" fill="var(--geo-e)"/>
+          <path d="M420,0 L286,0 A134,134 0 0 0 420,134 Z" fill="var(--geo-a)"/>
+          <circle cx="210" cy="210" r="65" fill="var(--geo-b)"/>
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#bauhaus-p)" opacity="0.28"/>
+    </svg>
+    <div class="wrap">
+      <span class="eyebrow">Our Programs</span>
+      <h1>Five programs. One mission for African tech talent.</h1>
+      <p class="sub">Everything FocusHub runs — training, spaces, partnerships, and events — rolls up into five focus areas. Here's how each one works, and how they connect.</p>
+      <div class="prog-hero-stats">
+        <div class="prog-hero-stat"><h3>05</h3><p>Focus areas, working as one ecosystem</p></div>
+        <div class="prog-hero-stat"><h3>1,000+</h3><p>Builders trained and supported since 2013</p></div>
+        <div class="prog-hero-stat"><h3>Africa-wide</h3><p>Delivered in person and online</p></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= PROGRAM LIST + RAIL ================= -->
+  <section class="programs-shell">
+    <div class="wrap">
+
+      <div class="program-list" id="programList">
+
+        <!-- 01 — Technology & Digital Skills Education -->
+        <article class="program-band" data-rail-color="var(--p1)" style="--p-accent:var(--p1);--p-tint:var(--p1-tint)">
+          <div class="program-glyph-wrap">
+            <span class="program-index">01</span>
+            <svg viewBox="0 0 120 120" aria-hidden="true">
+              <circle cx="46" cy="46" r="34" fill="var(--p-accent)" opacity="0.16"/>
+              <path d="M46 12a34 34 0 0 1 34 34H46Z" fill="var(--p-accent)"/>
+              <rect x="66" y="66" width="34" height="34" rx="8" fill="var(--p-accent)" opacity="0.5"/>
+            </svg>
+          </div>
+          <div class="program-copy">
+            <span class="program-tag">Education</span>
+            <h2>Technology &amp; Digital Skills Education</h2>
+            <p class="desc">Training and capacity-building in software development, AI, machine learning, and data analytics — the foundation every other program builds on.</p>
+            <ul class="program-feats">
+              <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span>Hands-on curriculum across AI/ML, data, and software</li>
+              <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span>Cohort-based, project-first learning</li>
+              <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span>Direct pathway into the Bullish AI School's deeper tracks</li>
+            </ul>
+            <a href="index.html#bullish" class="program-link">See Bullish AI School <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </article>
+
+        <!-- 02 — Professional Training & Certification -->
+        <article class="program-band" data-rail-color="var(--p2)" style="--p-accent:var(--p2);--p-tint:var(--p2-tint)">
+          <div class="program-glyph-wrap">
+            <span class="program-index">02</span>
+            <svg viewBox="0 0 120 120" aria-hidden="true">
+              <rect x="14" y="14" width="46" height="46" rx="10" fill="var(--p-accent)" opacity="0.18"/>
+              <rect x="46" y="46" width="60" height="60" rx="14" fill="var(--p-accent)"/>
+              <circle cx="30" cy="90" r="16" fill="var(--p-accent)" opacity="0.5"/>
+            </svg>
+          </div>
+          <div class="program-copy">
+            <span class="program-tag">Certification</span>
+            <h2>Professional Training &amp; Certification</h2>
+            <p class="desc">Workshops, bootcamps, fellowships, and non-degree certification courses built for individuals and organizations that need results faster than a full cohort allows.</p>
+            <ul class="program-feats">
+              <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span>Short-form bootcamps and fellowships</li>
+              <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span>Certification tracks for individuals and teams</li>
+              <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span>Designed around working professionals' schedules</li>
+            </ul>
+            <a href="index.html#contact" class="program-link">Talk to us about training <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </article>
+
+        <!-- 03 — Innovation Hubs & Collaborative Spaces -->
+        <article class="program-band" data-rail-color="var(--p3)" style="--p-accent:var(--p3);--p-tint:var(--p3-tint)">
+          <div class="program-glyph-wrap">
+            <span class="program-index">03</span>
+            <svg viewBox="0 0 120 120" aria-hidden="true">
+              <rect x="16" y="46" width="40" height="60" rx="8" fill="var(--p-accent)" opacity="0.5"/>
+              <rect x="64" y="16" width="40" height="90" rx="8" fill="var(--p-accent)"/>
+              <circle cx="36" cy="36" r="18" fill="var(--p-accent)" opacity="0.18"/>
+            </svg>
+          </div>
+          <div class="program-copy">
+            <span class="program-tag">Infrastructure</span>
+            <h2>Innovation Hubs &amp; Collaborative Spaces</h2>
+            <p class="desc">Innovation hubs, incubation and acceleration programs, technology labs, and collaborative workspaces where builders actually go to build.</p>
+            <ul class="program-feats">
+              <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span>Physical and digital innovation hubs</li>
+              <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span>Incubation and acceleration support</li>
+              <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span>Shared labs and maker spaces for active teams</li>
+            </ul>
+            <a href="index.html#startup-ideas" class="program-link">Submit a startup idea <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </article>
+
+        <!-- 04 — Partnerships & Ecosystem Collaboration -->
+        <article class="program-band" data-rail-color="var(--p4)" style="--p-accent:var(--p4);--p-tint:var(--p4-tint)">
+          <div class="program-glyph-wrap">
+            <span class="program-index">04</span>
+            <svg viewBox="0 0 120 120" aria-hidden="true">
+              <circle cx="42" cy="60" r="30" fill="var(--p-accent)" opacity="0.5"/>
+              <circle cx="78" cy="60" r="30" fill="var(--p-accent)" opacity="0.5"/>
+              <circle cx="60" cy="60" r="14" fill="var(--p-accent)"/>
+            </svg>
+          </div>
+          <div class="program-copy">
+            <span class="program-tag">Ecosystem</span>
+            <h2>Partnerships &amp; Ecosystem Collaboration</h2>
+            <p class="desc">Working with institutions, corporates, government, development partners, and private-sector actors to turn training into real, lasting opportunity.</p>
+            <ul class="program-feats">
+              <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span>Joint programs with corporates and institutions</li>
+              <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span>Government and development-partner collaboration</li>
+              <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span>Ecosystem-building initiatives across sectors</li>
+            </ul>
+            <a href="index.html#partners" class="program-link">Explore partnerships <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </article>
+
+        <!-- 05 — Events & Innovation Programs -->
+        <article class="program-band" data-rail-color="var(--p5)" style="--p-accent:var(--p5);--p-tint:var(--p5-tint)">
+          <div class="program-glyph-wrap">
+            <span class="program-index">05</span>
+            <svg viewBox="0 0 120 120" aria-hidden="true">
+              <path d="M60 8 L108 96 L12 96 Z" fill="var(--p-accent)" opacity="0.18"/>
+              <path d="M60 34 L92 92 L28 92 Z" fill="var(--p-accent)"/>
+              <circle cx="60" cy="60" r="7" fill="#fff"/>
+            </svg>
+          </div>
+          <div class="program-copy">
+            <span class="program-tag">Community</span>
+            <h2>Events &amp; Innovation Programs</h2>
+            <p class="desc">Conferences, seminars, hackathons, exhibitions, and innovation challenges — the moments where the whole ecosystem shows up in one room.</p>
+            <ul class="program-feats">
+              <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span>Hackathons and innovation challenges</li>
+              <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span>Conferences and seminars for the wider ecosystem</li>
+              <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span>Talent showcases and exhibitions</li>
+            </ul>
+            <a href="index.html#hackathon" class="program-link">See Hackathon 2024 <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- Live index rail -->
+      <div class="rail" aria-hidden="true">
+        <div class="rail-line">
+          <div class="rail-fill" id="railFill"></div>
+        </div>
+        <div class="rail-dots" id="railDots">
+          <div class="rail-dot" data-target="0" style="--dot-color:var(--p1)"></div>
+          <div class="rail-dot" data-target="1" style="--dot-color:var(--p2)"></div>
+          <div class="rail-dot" data-target="2" style="--dot-color:var(--p3)"></div>
+          <div class="rail-dot" data-target="3" style="--dot-color:var(--p4)"></div>
+          <div class="rail-dot" data-target="4" style="--dot-color:var(--p5)"></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= CTA BAND ================= -->
+  <div class="cta-wrap on-dark">
+    <section class="cta-band">
+      <svg class="cta-geo" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <rect width="100%" height="100%" fill="url(#bauhaus-p)"/>
+      </svg>
+      <h2>Ready to plug into one of these?</h2>
+      <p>Join a Bullish AI cohort, submit a startup idea, or partner with FocusHub on your own program.</p>
+      <div class="hero-cta">
+        <a href="index.html#bullish" class="btn btn-primary">Explore Bullish AI
+          <span class="arrow-circle"><svg viewBox="0 0 24 24" fill="none" stroke="#5A80FF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+        <a href="index.html#contact" class="btn btn-secondary">Talk to us</a>
+      </div>
+    </section>
+  </div>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <span class="name">FocusHub</span>
+          <p>A business and technology innovation hub building Africa's production-ready AI talent since 2013.</p>
+        </div>
+        <nav class="footer-links" aria-label="Footer">
+          <a href="index.html#about">About</a>
+          <a href="index.html#what-we-do">What we do</a>
+          <a href="programs.html">Programs</a>
+          <a href="index.html#partners">Partners</a>
+          <a href="index.html#contact">Contact</a>
+        </nav>
+      </div>
+      <div class="footer-legal">
+        <span>© 2026 FocusHub. All rights reserved.</span>
+        <span>Fix your focus. Find your path.</span>
+      </div>
+    </div>
+  </footer>
+
+<script>
+  // ── Mobile menu ──────────────────────────────────────
+  const burger = document.getElementById('burger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  burger.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+  mobileMenu.querySelectorAll('a').forEach(a =>
+    a.addEventListener('click', () => mobileMenu.classList.remove('open'))
+  );
+
+  // ── Scroll-reveal for each program band ──────────────
+  const bands = Array.from(document.querySelectorAll('.program-band'));
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('in-view');
+    });
+  }, { threshold: 0.2 });
+  bands.forEach(b => revealObserver.observe(b));
+
+  // ── Live index rail: fill + active dot follow scroll ─
+  const railFill = document.getElementById('railFill');
+  const dots = Array.from(document.querySelectorAll('.rail-dot'));
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  dots.forEach(dot => {
+    dot.addEventListener('click', () => {
+      const i = Number(dot.dataset.target);
+      bands[i].scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
+    });
+  });
+
+  let ticking = false;
+  function updateRail() {
+    ticking = false;
+    const listEl = document.getElementById('programList');
+    const rect = listEl.getBoundingClientRect();
+    const vh = window.innerHeight;
+
+    const total = rect.height - vh * 0.5;
+    const scrolled = Math.min(Math.max(-rect.top + vh * 0.5, 0), Math.max(total, 1));
+    const pct = total > 0 ? (scrolled / total) * 100 : 0;
+    railFill.style.height = Math.min(100, Math.max(0, pct)) + '%';
+
+    let activeIdx = 0;
+    bands.forEach((band, i) => {
+      const bRect = band.getBoundingClientRect();
+      if (bRect.top <= vh * 0.5) activeIdx = i;
+    });
+    dots.forEach((d, i) => d.classList.toggle('active', i === activeIdx));
+  }
+  function onScroll() {
+    if (!ticking) { window.requestAnimationFrame(updateRail); ticking = true; }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+  updateRail();
+</script>
+</body>
+</html>
